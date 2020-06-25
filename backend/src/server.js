@@ -14,18 +14,16 @@ app.use('/api/posts', posts)
 app.use(morgan('dev'))
 app.use(helmet())
 
-mongoose.connect('mongodb://localhost/test', {
+const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
-})
+}
 
-const db = mongoose.connection
-
-db.on('error', console.error.bind(console, 'connection error:'))
-db.once('open', () => {
-  console.log('Database connected...')
-})
+mongoose
+  .connect('mongodb://localhost/test', options)
+  .then(() => console.log('Database connected...'))
+  .catch(err => console.log(err))
 
 const port = process.env.PORT || 3000
 
