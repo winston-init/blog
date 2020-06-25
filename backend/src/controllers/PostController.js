@@ -1,4 +1,4 @@
-const Post = require('../models/Post.js')
+const { Post, validate } = require('../models/Post.js')
 
 module.exports = {
   async getPosts(request, response) {
@@ -28,6 +28,10 @@ module.exports = {
   async createPost(request, response) {
     const { body } = request
 
+    const { error } = validate(body)
+
+    if (error) return response.status(400).send(error.message)
+
     const post = new Post(body)
 
     try {
@@ -41,6 +45,10 @@ module.exports = {
 
   async updatePost(request, response) {
     const { body, params } = request
+
+    const { error } = validate(body)
+
+    if (error) return response.status(400).send(error.message)
 
     const post = await Post.findOneAndUpdate(
       { _id: params.id },
