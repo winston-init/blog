@@ -47,7 +47,7 @@ module.exports = {
       { $set: body },
       { new: true },
       (err, result) => {
-        if (err) response.send(err)
+        if (err) response.status(404).send('The given ID was not found...')
         else response.send(result)
       }
     )
