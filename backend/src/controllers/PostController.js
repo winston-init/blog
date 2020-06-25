@@ -2,10 +2,11 @@ const Post = require('../models/Post.js')
 
 module.exports = {
   async getPosts(request, response) {
-    const { page = 1 } = request.query
+    const { body, query } = request
+    const { page = 1 } = query
     const pageSize = 10
-    // const posts = await Post.paginate({}, { page, limit: 10 })
-    const posts = await Post.find(request.body)
+
+    const posts = await Post.find(body)
       .skip((page - 1) * pageSize)
       .limit(pageSize)
       .sort({ id: 1 })
@@ -15,7 +16,9 @@ module.exports = {
   },
 
   async getPost(request, response) {
-    const post = await Post.findById(request.params.id)
+    const { body, params } = request
+
+    const post = await Post.findById(params.id)
 
     if (!post) return response.status(404).send('The given ID was not found...')
 
@@ -23,7 +26,9 @@ module.exports = {
   },
 
   async createPost(request, response) {
-    const post = new Post(request.body)
+    const { body } = request
+
+    const post = new Post(body)
 
     try {
       const result = await post.save()
@@ -35,20 +40,33 @@ module.exports = {
   },
 
   async updatePost(request, response) {
+    const { body, params } = request
+
     const post = await Post.findOneAndUpdate(
-      request.params.id,
-      {
-        $set: request.body,
-      },
-      { new: true }
+      { _id: params.id },
+      { $set: body },
+      { new: true },
+      (err, result) => {
+        if (err) response.send(err)
+        else response.send(result)
+      }
     )
 
     return response.send(post)
   },
 
   async deletePost(request, response) {
-    const post = await Post.findByIdAndDelete(request.params.id)
+    const resultsHandler = (error, result) => {
+      if (error)
+        return response.status(404).send('The given ID was not found...')
+      else return response.send(result)
+    }
 
-    return response.send(post)
+    const post = await Post.findOneAndDelete(
+      { _id: request.params.id },
+      (err, result) => {
+        resultsHandler(err, result)
+      }
+    )
   },
 }
