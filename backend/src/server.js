@@ -23,7 +23,7 @@ const options = {
 mongoose
   .connect('mongodb://localhost/test', options)
   .then(() => console.log('Database connected...'))
-  .catch(err => console.log(err))
+  .catch(err => console.log('Database could not be connected...', err))
 
 const port = process.env.PORT || 3000
 
