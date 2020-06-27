@@ -12,11 +12,27 @@ const validatePost = post => {
 }
 
 const PostSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  author: { type: String, required: true },
-  tags: { type: [String] },
-  date: { type: Date, default: Date.now },
-  isPublished: { type: Boolean, required: true },
+  title: {
+    type: String,
+    required: true,
+    minlength: 2,
+    maxlength: 50,
+  },
+  author: {
+    type: String,
+    required: true,
+    minlength: 2,
+    maxlength: 50,
+  },
+  tags: [String],
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  isPublished: {
+    type: Boolean,
+    required: true,
+  },
 })
 
 exports.Post = mongoose.model('Post', PostSchema)
