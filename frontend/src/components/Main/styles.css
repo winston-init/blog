@@ -1,9 +1,15 @@
 .main {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.grid {
+  width: 90%;
   display: grid;
   padding-top: 50px;
   justify-content: center;
   grid-template-rows: repeat(2, 400px);
-  grid-template-columns: repeat(3, 300px);
+  grid-template-columns: repeat(auto-fit, 300px);
   gap: 75px;
+  box-sizing: border-box;
 }
