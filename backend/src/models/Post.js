@@ -3,8 +3,11 @@ const Joi = require('@hapi/joi')
 
 const validatePost = post => {
   const schema = Joi.object({
-    title: Joi.string().min(2).max(50).required(),
+    title: Joi.string().min(2).max(200).required(),
     author: Joi.string().min(2).max(50).required(),
+    description: Joi.string().min(5).max(250).required(),
+    image: Joi.string(),
+    tag: Joi.string(),
     isPublished: Joi.boolean().required(),
   })
 
@@ -16,7 +19,15 @@ const PostSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 50,
+    maxlength: 200,
+  },
+  image: String,
+  tag: String,
+  description: {
+    type: String,
+    required: true,
+    minlength: 5,
+    maxlength: 250,
   },
   author: {
     type: String,
@@ -24,7 +35,6 @@ const PostSchema = new mongoose.Schema({
     minlength: 2,
     maxlength: 50,
   },
-  tags: [String],
   date: {
     type: Date,
     default: Date.now,
