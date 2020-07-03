@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Post from '../Post/index'
+import SearchBar from './../SearchBar/index'
 import api from './../../services/api'
 
 import './styles.css'
@@ -22,6 +23,8 @@ export class Main extends Component {
   render() {
     return (
       <main className='main'>
+        <SearchBar />
+
         <div className='grid'>
           {this.state.posts.map(post => (
             <Post post={post} key={post._id} />
