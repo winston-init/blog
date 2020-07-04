@@ -1,38 +1,51 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import Post from '../Post/index'
 import SearchBar from './../SearchBar/index'
 import api from './../../services/api'
+import { trackPromise } from 'react-promise-tracker'
 
 import './styles.css'
 
-export class Main extends Component {
-  state = {
-    posts: [],
-  }
+function Main() {
+  const [posts, setPosts] = useState([])
+  const [search, setSearch] = useState('')
+  const [filteredPosts, setFilteredPosts] = useState([])
 
-  componentDidMount() {
-    this.loadPosts()
-  }
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const { data } = await trackPromise(api.get('/posts'))
+        setPosts(data)
+      } catch (err) {
+        console.log(err.response.data)
+      }
+    }
+    fetchData()
+  }, [])
 
-  loadPosts = async () => {
-    const response = await api.get('/posts')
-
-    this.setState({ posts: response.data })
-  }
-
-  render() {
-    return (
-      <main className='main'>
-        <SearchBar />
-
-        <div className='grid'>
-          {this.state.posts.map(post => (
-            <Post post={post} key={post._id} />
-          ))}
-        </div>
-      </main>
+  useEffect(() => {
+    setFilteredPosts(
+      posts.filter(post =>
+        post.title.toLowerCase().includes(search.toLowerCase())
+      )
     )
+  }, [search, posts])
+
+  function handleChange(e) {
+    setSearch(e.target.value)
   }
+
+  return (
+    <main className='main'>
+      <SearchBar onChange={handleChange} />
+
+      <div className='grid'>
+        {filteredPosts.map(post => (
+          <Post post={post} key={post._id} />
+        ))}
+      </div>
+    </main>
+  )
 }
 
 export default Main
