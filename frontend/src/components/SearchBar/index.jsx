@@ -11,7 +11,11 @@ class SearchBar extends Component {
           <FiSearch size='1.5em' color='#A0A4B4' />
         </div>
         <div className='search'>
-          <input type='text' placeholder='Search' />
+          <input
+            type='text'
+            placeholder='Search'
+            onChange={this.props.onChange}
+          />
         </div>
       </div>
     )
