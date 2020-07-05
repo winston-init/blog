@@ -9,7 +9,7 @@ module.exports = {
     const posts = await Post.find(body)
       .skip((page - 1) * pageSize)
       .limit(pageSize)
-      .sort({ id: 1 })
+      .sort({ date: -1 })
       .select()
 
     return response.send(posts)
