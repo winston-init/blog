@@ -4,7 +4,7 @@ module.exports = {
   async getPosts(request, response) {
     const { body, query } = request
     const { page = 1 } = query
-    const pageSize = 10
+    const pageSize = 6
 
     const posts = await Post.find(body)
       .skip((page - 1) * pageSize)
