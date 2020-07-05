@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { FiUser } from 'react-icons/fi'
 
 import './styles.css'
@@ -14,7 +15,9 @@ export class Post extends Component {
           <img src={post.image} alt='' />
         </div>
         <div className='body-post'>
-          <div className='post-title'>{post.title}</div>
+          <Link className='post-title' to={`/posts/${post._id}`}>
+            {post.title}
+          </Link>
           <div className='post-description'>{post.description}</div>
         </div>
         <div className='post-user'>
