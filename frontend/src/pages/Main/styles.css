@@ -1,0 +1,16 @@
+.main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 30px;
+  box-sizing: border-box;
+}
+
+.grid {
+  width: 90%;
+  display: grid;
+  justify-content: center;
+  grid-template-rows: repeat(2, 400px);
+  grid-template-columns: repeat(auto-fit, 300px);
+  gap: 75px;
+}
