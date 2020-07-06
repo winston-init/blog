@@ -1,0 +1,33 @@
+.post-detailed {
+  width: 72%;
+  margin: 45px auto 90px;
+  background-color: #fff;
+  padding: 20px 30px;
+  box-sizing: border-box;
+  font-weight: normal;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.post-detailed h1 {
+  padding-left: 15px;
+}
+
+.post-detailed .post-user {
+  padding-left: 25px;
+}
+
+.post-detailed img {
+  margin-top: 35px;
+  width: 80%;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 3px;
+}
+
+.content {
+  margin-top: 30px;
+  font-size: 1.2rem;
+  line-height: 1.85;
+  font-family: Impact, 'Arial Narrow Bold', sans-serif;
+}
