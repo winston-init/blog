@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { FiUser } from 'react-icons/fi'
+import User from './../User/index'
 
 import './styles.css'
 
@@ -20,15 +20,7 @@ export class Post extends Component {
           </Link>
           <div className='post-description'>{post.description}</div>
         </div>
-        <div className='post-user'>
-          <div className='user-photo'>
-            <FiUser size='1.8em' />
-          </div>
-          <div className='user-info'>
-            <div className='user'>{post.author}</div>
-            <div className='date'>{date}</div>
-          </div>
-        </div>
+        <User author={post.author} date={date} />
       </div>
     )
   }
