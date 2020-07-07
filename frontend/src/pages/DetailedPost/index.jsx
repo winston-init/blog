@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import User from './../../components/User/index'
+import BackButton from './../../components/BackButton/index'
 import api from '../../services/api'
 
 import './styles.css'
@@ -19,6 +20,7 @@ function DetailedPost(props) {
 
   return (
     <div className='post-detailed'>
+      <BackButton />
       <h1>{`Post ${post.title}`}</h1>
 
       <User author={post.author} date={date} />
